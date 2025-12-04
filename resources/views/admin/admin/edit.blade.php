@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <x-flash-success />
-        <x-flash-error />
+    <x-flash-error />
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4>{{ __('admins.edit_title') }}</h4>
         <a href="{{ route('admin.admin.index') }}" class="btn btn-secondary">
@@ -54,4 +55,22 @@
         </button>
     </form>
 </div>
+@endsection
+
+{{-- @section('styles')
+@if(app()->getLocale() === 'ar')
+    <style>
+        body, input, textarea, select, .form-label {
+            direction: rtl;
+            text-align: right;
+        }
+        .d-flex {
+            flex-direction: row-reverse !important;
+        }
+        .me-1 {
+            margin-left: .25rem !important;
+            margin-right: 0 !important;
+        }
+    </style>
+@endif --}}
 @endsection

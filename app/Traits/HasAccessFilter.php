@@ -34,4 +34,36 @@ trait HasAccessFilter
 
         return $query->whereIn($userColumn, $allowedUserIds);
     }
+        public function abortIfNoAccess()
+    {
+        $user = Auth::user();
+
+        // If logged in as Admin guard → full access
+        if (Auth::guard('admin')->check()) {
+            return;
+        }
+
+        // If user table login → check role
+        if ($user && in_array($user->role?->name, ['Manager', 'Sales', 'Admin'])) {
+            return;
+        }
+
+        abort(403, 'Unauthorized access.');
+    }
+        protected function canAccess($model, string $ownerColumn = 'assigned_to'): bool
+    {
+        // Admins can access everything
+        if (Auth::guard('admin')->check()) {
+            return true;
+        }
+
+        // For managers/sales, check access via query builder
+        $query = $model::query()->where('id', $model->id);
+        if (method_exists($this, 'filterAccess')) {
+            $query = $this->filterAccess($query, $ownerColumn);
+        }
+
+        return $query->exists();
+    }
+
 }
