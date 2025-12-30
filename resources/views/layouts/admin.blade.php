@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{ $title ?? 'Webinar' }}</title>
+        <title>CRM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css" rel="stylesheet">
@@ -15,8 +15,8 @@
     .left-sidebar {
         right: 0;
         left: auto;
-        transition: transform 0.3s ease;
-        transform: translateX(250px); /* hidden by default (off-screen to right) */
+        display: hidden;
+        transform: translateX(270px); /* hidden by default (off-screen to right) */
     }
 
     /* Show when active */
@@ -37,7 +37,7 @@
         left: 0;
         right: auto;
         transition: transform 0.3s ease;
-        transform: translateX(-250px); /* hidden by default (off-screen to left) */
+        transform: translateX(-270px); /* hidden by default (off-screen to left) */
     }
 
     /* Show when active */

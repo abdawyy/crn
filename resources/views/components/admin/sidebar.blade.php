@@ -1,5 +1,5 @@
 <aside class="left-sidebar @if(app()->getLocale() == 'ar') rtl-sidebar @endif">
-    <div>
+    <div class="sidebar-nav scroll-sidebar">
         <!-- Brand Logo -->
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="{{ url('/') }}" class="text-nowrap logo-img">
@@ -8,7 +8,6 @@
         </div>
 
         <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
 
                 <!-- Small Cap -->
@@ -112,7 +111,6 @@
                 </li>
 
             </ul>
-        </nav>
     </div>
 </aside>
 
