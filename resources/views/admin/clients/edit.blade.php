@@ -89,7 +89,7 @@
             </div>
 
             {{-- Assign to Manager --}}
-            @if(auth()->guard('admin')->check())
+@if(auth()->guard('admin')->check() || auth()->user()->role->name !== 'manager')
                 <div class="mb-3">
                     <label class="form-label">{{ __('clients.assigned_manager') }}</label>
                     <select class="form-select" name="assigned_to_manager">
