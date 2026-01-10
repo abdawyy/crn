@@ -32,6 +32,7 @@ class AdminController extends Controller
         // Optional: send extra props to the view (e.g. routeName)
         $service->setActionProps([
             'routeName' => 'admin.admin',
+            'deleteFlag'=> true
         ]);
         return $service->make($request);
     }

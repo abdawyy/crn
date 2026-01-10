@@ -11,7 +11,7 @@
         
         <!-- Hamburger Menu Button -->
         <a class="nav-link sidebar-toggle text-white " href="javascript:void(0)"id="sidebarToggle">
-          <i class="ti ti-menu-2 fs-4"></i>
+          <i class="ti ti-menu-2 fs-4 ml-5"></i>
         </a>
 
         <!-- Logo -->

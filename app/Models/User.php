@@ -17,9 +17,9 @@ class User extends Authenticatable
         'role_id',
         'manager_id', // <-- used for sales team under managers
     ];
-         protected $casts = [
-    'created_at'=> 'date:Y-m-d',
-];
+    protected $casts = [
+        'created_at' => 'date:Y-m-d',
+    ];
 
     protected $hidden = [
         'password',
@@ -32,6 +32,26 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            // 1. Dissociate Sales Team: If this user is a manager, 
+            // set their team members' manager_id to null so they aren't deleted.
+            $user->salesTeam()->update(['manager_id' => null]);
+
+            // 2. Dissociate Clients: Set assigned_to to null 
+            // so we don't lose client records when a staff member leaves.
+            $user->clients()->update(['assigned_to' => null]);
+
+            // 3. Delete dependent records: Tasks and Notes usually belong 
+            // only to the creator, so we delete them.
+            $user->tasks()->delete();
+            $user->notes()->delete();
+        });
     }
 
     /*

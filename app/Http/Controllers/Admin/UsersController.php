@@ -40,7 +40,9 @@ class UsersController extends Controller
 
         $service = new BaseDataTable($query, $columns, true, 'components.default-buttons-table');
         $service->setActionProps([
-            'routeName' => 'admin.users'
+            'routeName' => 'admin.users',
+            'deleteFlag' => true
+
         ]);
 
         return $service->make($request);
@@ -127,21 +129,27 @@ class UsersController extends Controller
     /**
      * Delete user.
      */
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-
-        if (!$this->canAccess($user)) {
-            return redirect()->route('admin.users.index')
-                ->with('error', 'You do not have access to delete this user.');
-        }
-
-        $user->delete();
-
-        return redirect()
-            ->route('admin.users.index')
-            ->with('success', 'User deleted successfully');
+public function destroy($id)
+{
+    // Prevent the currently logged-in Admin from deleting themselves
+    if (auth('admin')->check() && auth('admin')->id() == $id) {
+        return redirect()->back()->with('error', 'You cannot delete your own account while logged in.');
     }
+
+    $user = User::findOrFail($id);
+
+    // Your existing access check
+    if (!$this->canAccess($user)) {
+        return redirect()->route('admin.users.index')
+            ->with('error', 'You do not have access to delete this user.');
+    }
+
+    // This will trigger the 'deleting' boot method we added to the model
+    $user->delete();
+
+    return redirect()->route('admin.users.index')
+        ->with('success', 'User and related data handled successfully');
+}
 
     /**
      * Check access helper (flash error compatible).

@@ -18,6 +18,7 @@ class Client extends Model
         'source','status',
         'assigned_to_sale',
         'assigned_to_manager',
+        'feedback'
     ];
 
     // Relationship for Sales/sale
