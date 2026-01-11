@@ -41,16 +41,17 @@ class User extends Authenticatable
         static::deleting(function ($user) {
             // 1. Dissociate Sales Team: If this user is a manager, 
             // set their team members' manager_id to null so they aren't deleted.
-            $user->salesTeam()->update(['manager_id' => null]);
 
             // 2. Dissociate Clients: Set assigned_to to null 
             // so we don't lose client records when a staff member leaves.
-            $user->clients()->update(['assigned_to' => null]);
+            $user->clients()->update(['assigned_to_sale' => null]);
+            $user->clients()->update(['assigned_to_manager' => null]);
+
 
             // 3. Delete dependent records: Tasks and Notes usually belong 
             // only to the creator, so we delete them.
             $user->tasks()->delete();
-          //  $user->notes()->delete();
+            //  $user->notes()->delete();
         });
     }
 
