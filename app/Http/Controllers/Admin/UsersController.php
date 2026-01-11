@@ -54,8 +54,7 @@ class UsersController extends Controller
     public function create()
     {
         $roles = Role::all();
-        $users = User::all(); // for manager selection
-        return view('admin.users.create', compact('roles', 'users'));
+$users = User::where('role_id', 1)->get();        return view('admin.users.create', compact('roles', 'users'));
     }
 
     public function edit($id)

@@ -7,7 +7,7 @@ return [
     'email' => 'Email',
     'phone' => 'Phone',
     'assigned_to' => 'Assigned To',
-    'select_user' => 'Select User',
+    'select_user' => 'Select Sales',
     'create' => 'Create',
     'update' => 'Update',
     'cancel' => 'Cancel',
@@ -32,7 +32,7 @@ return [
     'notes' => 'Notes',
 
 
-    'assigned_user' => 'Assigned User',
+    'assigned_user' => 'Assigned Sales',
     'assigned_manager' => 'Assigned Manager',
     'select_manager' => 'Select Manager',
     'select_sale' => 'Select Sales', // <-- add this

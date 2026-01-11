@@ -50,7 +50,7 @@ class User extends Authenticatable
             // 3. Delete dependent records: Tasks and Notes usually belong 
             // only to the creator, so we delete them.
             $user->tasks()->delete();
-            $user->notes()->delete();
+          //  $user->notes()->delete();
         });
     }
 
@@ -87,14 +87,14 @@ class User extends Authenticatable
     // User has many tasks he created or assigned
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'user_id');
+        return $this->hasMany(Task::class, 'assigned_to');
     }
 
     // User adds many notes
-    public function notes()
-    {
-        return $this->hasMany(Note::class, 'user_id');
-    }
+    // public function notes()
+    // {
+    //     return $this->hasMany(Note::class, 'assigned_to');
+    // }
     public function scopeSales($query)
     {
         return $query->whereRelation('role', 'name', 'Sales');
